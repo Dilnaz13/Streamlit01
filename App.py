@@ -1,31 +1,63 @@
 import streamlit as st
 from Pages import Home, Project1, Project2, Project3
 from streamlit_navigation_bar import st_navbar
+import os
 
-st.set_page_config(initial_sidebar_state="collapsed")
-pages = ["Home", "Project1", "Project2", "Project3"]
-styles = {
+from PIL import Image
+import pandas as pd
+import numpy as np
+
+image = Image.open('img/image.jpeg')
+st.set_page_config(initial_sidebar_state="collapsed", page_icon=image)
+
+logo_path = os.path.join(os.path.dirname(__file__), "img", "logo.svg")
+pages = [" ",'Home','Project1', 'Project2', 'Project3']
+
+styles =  {
     "nav": {
-        "background-color": "rgb(123, 209, 146)",
+        "background-color": "rgb(234, 221, 202)",
+        "display": "flex",
+        "justify-content": "center",
     },
     "div": {
         "max-width": "32rem",
     },
-    "span": {
-        "border-radius": "0.5rem",
-        "color": "rgb(49, 51, 63)",
-        "margin": "0 0.125rem",
-        "padding": "0.4375rem 0.625rem",
+    "img": {
+        "position": "absolute",
+        "left": "-20px",
+        "font-size": "15px",
+        "top": "-14px",
+        "width": "120px",
+        "height": "80px",
     },
+    "span": {
+        "display": "block",
+        "color": "white",
+        "padding": "0.2rem 0.725rem",
+        "font-size": "14px",
+    },
+
     "active": {
-        "background-color": "rgba(105, 114, 255, 0.25)",
+        "background": "white",
+        "color": "black",
+        "font-weight": "normal",
+        "padding": "14px",
     },
     "hover": {
         "background-color": "rgba(255, 255, 255, 0.35)",
-    }
+    },
 }
 
-page = st_navbar(pages, styles=styles)
+options = {
+    "show_menu": False,
+    "show_sidebar": True,
+}
+
+page = st_navbar(pages,
+    styles=styles,
+    logo_path=logo_path,
+    options=options)
+
 
 if page == 'Home':
     Home.Home().app()
@@ -37,3 +69,4 @@ elif page == 'Project3':
     Project3.Project3().app()
 else:
     Home.Home().app()
+
